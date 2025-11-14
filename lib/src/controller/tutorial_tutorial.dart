@@ -86,15 +86,16 @@ class Tutorial {
 
   /// This method returns the position of the widget
   static Offset _capturePositionWidget(GlobalKey key) {
-    RenderBox renderPosition =
-        key.currentContext?.findRenderObject() as RenderBox;
+    RenderBox? renderPosition =
+        key.currentContext?.findRenderObject() as RenderBox?;
 
-    return renderPosition.localToGlobal(Offset.zero);
+    return renderPosition?.localToGlobal(Offset.zero) ?? Offset.zero;
   }
 
   /// This method returns the size of the widget
   static Size _getSizeWidget(GlobalKey key) {
-    RenderBox renderSize = key.currentContext?.findRenderObject() as RenderBox;
-    return renderSize.size;
+    RenderBox? renderSize =
+        key.currentContext?.findRenderObject() as RenderBox?;
+    return renderSize?.size ?? Size.zero;
   }
 }
