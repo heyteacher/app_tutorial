@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
     items.addAll({
       TutorialItem(
         globalKey: incrementKey,
-        color: Colors.black.withOpacity(0.6),
+        color: Colors.black.withValues(alpha: 0.6),
         borderRadius: const Radius.circular(15.0),
         shapeFocus: ShapeFocus.roundedSquare,
         child: const TutorialItemContent(
@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       TutorialItem(
         globalKey: avatarKey,
-        color: Colors.black.withOpacity(0.6),
+        color: Colors.black.withValues(alpha: 0.6),
         shapeFocus: ShapeFocus.oval,
         child: const TutorialItemContent(
           title: 'Avatar',
@@ -82,10 +82,14 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     initItems();
     Future.delayed(const Duration(microseconds: 200)).then((value) {
-      Tutorial.showTutorial(context, items, onTutorialComplete: () {
-        // Code to be executed after the tutorial ends
-        print('Tutorial is complete!');
-      });
+      if (mounted) {
+        Tutorial.showTutorial(context, items, onTutorialComplete: () {
+          // Code to be executed after the tutorial ends
+          debugPrint('Tutorial is complete!');
+        });
+      } else {
+        debugPrint('Context is not mounted!, tutorial not shown.');
+      }
     });
     super.initState();
   }
