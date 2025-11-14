@@ -1,11 +1,15 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
+
 import 'package:app_tutorial/app_tutorial.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
+/// Example App
 class MyApp extends StatelessWidget {
+  /// Creates the widget.
   const MyApp({super.key});
 
   @override
@@ -21,10 +25,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
+/// Example Home Page
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  /// Creates the widget. create
+  const MyHomePage({required String title, super.key}) : _title = title;
 
-  final String title;
+  final String _title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -35,9 +41,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<TutorialItem> items = [];
 
-  final incrementKey = GlobalKey();
-  final avatarKey = GlobalKey();
-  final textKey = GlobalKey();
+  final GlobalKey<State<StatefulWidget>> _incrementKey = GlobalKey();
+  final GlobalKey<State<StatefulWidget>> _avatarKey = GlobalKey();
+  final GlobalKey<State<StatefulWidget>> _textKey = GlobalKey();
 
   void _incrementCounter() {
     setState(() {
@@ -48,27 +54,26 @@ class _MyHomePageState extends State<MyHomePage> {
   void initItems() {
     items.addAll({
       TutorialItem(
-        globalKey: incrementKey,
-        color: Colors.black.withOpacity(0.6),
-        borderRadius: const Radius.circular(15.0),
-        shapeFocus: ShapeFocus.roundedSquare,
+        globalKey: _incrementKey,
+        color: Colors.black.withValues(alpha: 0.6),
+        borderRadius: const Radius.circular(15),
         child: const TutorialItemContent(
           title: 'Increment button',
           content: 'This is the increment button',
         ),
       ),
       TutorialItem(
-        globalKey: textKey,
+        globalKey: _textKey,
         shapeFocus: ShapeFocus.square,
-        borderRadius: const Radius.circular(15.0),
+        borderRadius: const Radius.circular(15),
         child: const TutorialItemContent(
           title: 'Counter text',
           content: 'This is the text that displays the status of the counter',
         ),
       ),
       TutorialItem(
-        globalKey: avatarKey,
-        color: Colors.black.withOpacity(0.6),
+        globalKey: _avatarKey,
+        color: Colors.black.withValues(alpha: 0.6),
         shapeFocus: ShapeFocus.oval,
         child: const TutorialItemContent(
           title: 'Avatar',
@@ -81,12 +86,24 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     initItems();
-    Future.delayed(const Duration(microseconds: 200)).then((value) {
-      Tutorial.showTutorial(context, items, onTutorialComplete: () {
-        // Code to be executed after the tutorial ends
-        print('Tutorial is complete!');
-      });
-    });
+    unawaited(
+      Future<void>.delayed(const Duration(microseconds: 200)).then((_) {
+        if (mounted) {
+          unawaited(
+            Tutorial.showTutorial(
+              context,
+              items,
+              onTutorialComplete: () {
+                // Code to be executed after the tutorial ends
+                debugPrint('Tutorial is complete!');
+              },
+            ),
+          );
+        } else {
+          debugPrint('Context is not mounted!, tutorial not shown.');
+        }
+      }),
+    );
     super.initState();
   }
 
@@ -95,10 +112,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Text(widget._title),
         leading: Icon(
           Icons.add_circle_outline_rounded,
-          key: avatarKey,
+          key: _avatarKey,
         ),
       ),
       body: Center(
@@ -110,14 +127,14 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
-              key: textKey,
+              key: _textKey,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        key: incrementKey,
+        key: _incrementKey,
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
@@ -126,15 +143,18 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+/// Tutorial Item Content
 class TutorialItemContent extends StatelessWidget {
+  /// Creates the widget.
   const TutorialItemContent({
+    required String title,
+    required String content,
     super.key,
-    required this.title,
-    required this.content,
-  });
+  })  : _content = content,
+        _title = title;
 
-  final String title;
-  final String content;
+  final String _title;
+  final String _content;
 
   @override
   Widget build(BuildContext context) {
@@ -148,12 +168,12 @@ class TutorialItemContent extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                title,
+                _title,
                 style: const TextStyle(color: Colors.white),
               ),
-              const SizedBox(height: 10.0),
+              const SizedBox(height: 10),
               Text(
-                content,
+                _content,
                 textAlign: TextAlign.center,
                 style: const TextStyle(color: Colors.white),
               ),
@@ -176,7 +196,7 @@ class TutorialItemContent extends StatelessWidget {
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),

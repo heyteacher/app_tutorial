@@ -1,30 +1,32 @@
-library tutorial;
 
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:app_tutorial/src/models/tutorial_item.dart';
 import 'package:app_tutorial/src/painter/painter.dart';
+import 'package:flutter/material.dart';
 
+/// Tutorial class
 class Tutorial {
-  static List<OverlayEntry> entries = [];
+  /// The overlay entryes
+  static final List<OverlayEntry> entries = [];
+  /// The count of items completed
   static late int count;
 
+  /// Shows the tutorial
   static Future<void> showTutorial(
       BuildContext context, List<TutorialItem> children,
-      {required VoidCallback onTutorialComplete}) async {
+      {required VoidCallback onTutorialComplete,}) async {
     clearEntries();
     final size = MediaQuery.of(context).size;
-    OverlayState overlayState = Overlay.of(context);
+    final overlayState = Overlay.of(context);
 
     count = 0;
 
     // Create a Completer to indicate when the tutorial is complete
-    Completer<void> tutorialCompleter = Completer<void>();
-
-    children.forEach((element) async {
-      final offset = _capturePositionWidget(element.globalKey);
-      final sizeWidget = _getSizeWidget(element.globalKey);
+    final tutorialCompleter = Completer<void>();
+    for (final tutorialItem in children) {
+      final offset = _capturePositionWidget(tutorialItem.globalKey);
+      final sizeWidget = _getSizeWidget(tutorialItem.globalKey);
       entries.add(
         OverlayEntry(
           builder: (context) {
@@ -46,17 +48,17 @@ class Tutorial {
                     CustomPaint(
                       size: size,
                       painter: HolePainter(
-                        shapeFocus: element.shapeFocus,
+                        shapeFocus: tutorialItem.shapeFocus,
                         dx: offset.dx + (sizeWidget.width / 2),
                         dy: offset.dy + (sizeWidget.height / 2),
                         width: sizeWidget.width,
                         height: sizeWidget.height,
-                        color: element.color,
-                        borderRadius: element.borderRadius,
-                        radius: element.radius,
+                        color: tutorialItem.color,
+                        borderRadius: tutorialItem.borderRadius,
+                        radius: tutorialItem.radius,
                       ),
                     ),
-                    element.child,
+                    tutorialItem.child,
                   ],
                 ),
               ),
@@ -64,29 +66,32 @@ class Tutorial {
           },
         ),
       );
-    });
+    }
 
     overlayState.insert(entries[0]);
 
-    // Wait until the tutorialCompleter.future is completed to indicate the tutorial is finished
+    // Wait until the tutorialCompleter.future is completed to indicate the 
+    // tutorial is finished
     await tutorialCompleter.future;
 
     // If the onTutorialComplete function is provided, call it
     onTutorialComplete();
   }
 
-  static clearEntries() {
+  /// Clears the entries
+  static void clearEntries() {
     entries.clear();
   }
 
-  static skipAll(BuildContext context) {
+  /// Skips the tutorial
+  static void skipAll(BuildContext context) {
     entries[count].remove();
     count++;
   }
 
   /// This method returns the position of the widget
   static Offset _capturePositionWidget(GlobalKey key) {
-    RenderBox? renderPosition =
+    final renderPosition =
         key.currentContext?.findRenderObject() as RenderBox?;
 
     return renderPosition?.localToGlobal(Offset.zero) ?? Offset.zero;
@@ -94,7 +99,7 @@ class Tutorial {
 
   /// This method returns the size of the widget
   static Size _getSizeWidget(GlobalKey key) {
-    RenderBox? renderSize =
+    final renderSize =
         key.currentContext?.findRenderObject() as RenderBox?;
     return renderSize?.size ?? Size.zero;
   }
