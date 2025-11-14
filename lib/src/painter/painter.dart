@@ -1,16 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:app_tutorial/src/models/shape_models.dart';
+import 'package:flutter/material.dart';
 
 /// A class that holds the data of the shapes
 class HolePainter extends CustomPainter {
-  final double dx;
-  final double dy;
-  final double width;
-  final double height;
-  final Color color;
-  final Radius borderRadius;
-  final ShapeFocus shapeFocus;
-  final double? radius;
 
   /// A constructor that takes in the data of the shape
   HolePainter({
@@ -23,6 +15,22 @@ class HolePainter extends CustomPainter {
     required this.borderRadius,
     this.shapeFocus = ShapeFocus.oval,
   });
+  /// x position of the shape
+  final double dx;
+  /// y position of the shape
+  final double dy;
+  /// width of the shape
+  final double width;
+  /// height of the shape
+  final double height;
+  /// color of the shape
+  final Color color;
+  /// border radius of the shape
+  final Radius borderRadius;
+  /// shape focus of the shape
+  final ShapeFocus shapeFocus;
+  /// radius of the shape
+  final double? radius;
 
   @override
 
@@ -36,10 +44,10 @@ class HolePainter extends CustomPainter {
             Path()..addRect(Rect.fromLTWH(0, 0, size.width, size.height)),
             Path()
               ..addOval(Rect.fromCircle(
-                  center: Offset(dx, dy), radius: radius ?? width))
+                  center: Offset(dx, dy), radius: radius ?? width,),)
               ..close(),
           ),
-          paint);
+          paint,);
     } else if (shapeFocus == ShapeFocus.roundedSquare) {
       canvas.drawPath(
           Path.combine(
@@ -57,10 +65,10 @@ class HolePainter extends CustomPainter {
                 topLeft: borderRadius,
                 bottomRight: borderRadius,
                 bottomLeft: borderRadius,
-              ))
+              ),)
               ..close(),
           ),
-          paint);
+          paint,);
     } else {
       canvas.drawPath(
           Path.combine(
@@ -68,10 +76,10 @@ class HolePainter extends CustomPainter {
             Path()..addRect(Rect.fromLTWH(0, 0, size.width, size.height)),
             Path()
               ..addRect(Rect.fromLTWH(
-                  dx - (width / 2), dy - (height / 2), width, height))
+                  dx - (width / 2), dy - (height / 2), width, height,),)
               ..close(),
           ),
-          paint);
+          paint,);
     }
   }
 
