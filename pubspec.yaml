@@ -1,11 +1,11 @@
 name: app_tutorial_heyteacher
 description: Package for creating onboarding flows for your app to explain the features of the app in a seamless ways to you users (fork by [Hey, Teacher](https://github.com/heyteacher)).
-version: 1.0.7
-repository: https://github.com/heyteacher/app-tutorial-heyteacher
+version: 1.0.8
+repository: https://github.com/heyteacher/app_tutorial_heyteacher
 license: BSD 3-Clause
-issue_tracker: https://github.com/heyteacher/app-tutorial-heyteacher/issues
-homepage: https://github.com/heyteacher/app-tutorial-heyteacher
-documentation: https://github.com/heyteacher/app-tutorial-heyteacher
+issue_tracker: https://github.com/heyteacher/app_tutorial_heyteacher/issues
+homepage: https://github.com/heyteacher/app_tutorial_heyteacher
+documentation: https://github.com/heyteacher/app_tutorial_heyteacher
 topics: [flutter, tutorial]
 
 environment:

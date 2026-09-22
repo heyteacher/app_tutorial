@@ -49,3 +49,5 @@ This update permits users to have more control over the onboarding flow
 - remove overlay entry `onTap` or `skipAll` only when count in less then entries length and check `entries` not empty before insert first overlay entry
 - handles RenderBox nullability in _capturePositionWidget and_capturePositionWidget
 - add `very_good_analysis` and fix warnings
+
+## [1.0.8] - fix github repository endpoints in `pubspec.yaml`
