@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:app_tutorial/src/models/tutorial_item.dart';
@@ -9,13 +8,16 @@ import 'package:flutter/material.dart';
 class Tutorial {
   /// The overlay entryes
   static final List<OverlayEntry> entries = [];
+
   /// The count of items completed
   static late int count;
 
   /// Shows the tutorial
   static Future<void> showTutorial(
-      BuildContext context, List<TutorialItem> children,
-      {required VoidCallback onTutorialComplete,}) async {
+    BuildContext context,
+    List<TutorialItem> children, {
+    required VoidCallback onTutorialComplete,
+  }) async {
     clearEntries();
     final size = MediaQuery.of(context).size;
     final overlayState = Overlay.of(context);
@@ -32,9 +34,9 @@ class Tutorial {
           builder: (context) {
             return GestureDetector(
               onTap: () {
-                entries[count].remove();
-                count++;
                 if (count < entries.length) {
+                  entries[count].remove();
+                  count++;
                   overlayState.insert(entries[count]);
                 } else {
                   // If this is the last tutorial step, complete the tutorial
@@ -68,9 +70,11 @@ class Tutorial {
       );
     }
 
-    overlayState.insert(entries[0]);
+    if (entries.isNotEmpty) {
+      overlayState.insert(entries[0]);
+    }
 
-    // Wait until the tutorialCompleter.future is completed to indicate the 
+    // Wait until the tutorialCompleter.future is completed to indicate the
     // tutorial is finished
     await tutorialCompleter.future;
 
@@ -85,22 +89,22 @@ class Tutorial {
 
   /// Skips the tutorial
   static void skipAll(BuildContext context) {
-    entries[count].remove();
-    count++;
+    if (count < entries.length) {
+      entries[count].remove();
+      count++;
+    }
   }
 
   /// This method returns the position of the widget
   static Offset _capturePositionWidget(GlobalKey key) {
-    final renderPosition =
-        key.currentContext?.findRenderObject() as RenderBox?;
+    final renderPosition = key.currentContext?.findRenderObject() as RenderBox?;
 
     return renderPosition?.localToGlobal(Offset.zero) ?? Offset.zero;
   }
 
   /// This method returns the size of the widget
   static Size _getSizeWidget(GlobalKey key) {
-    final renderSize =
-        key.currentContext?.findRenderObject() as RenderBox?;
+    final renderSize = key.currentContext?.findRenderObject() as RenderBox?;
     return renderSize?.size ?? Size.zero;
   }
 }
