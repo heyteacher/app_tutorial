@@ -11,7 +11,7 @@ Import the package into your `pubspec.yaml`
 
 ```yaml
 dependencies:
-  app_tutorial: ^currentVersion
+  app_tutorial_heyteacher: ^currentVersion
 ```
 
 View the [example project](https://github.com/heyteacher/app_tutorial_heyteacher/tree/master/example) to see how to use the package.
