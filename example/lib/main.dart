@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
 /// Example Home Page
 class MyHomePage extends StatefulWidget {
   /// Creates the widget. create
-  const MyHomePage({required String title, super.key}) : _title = title;
+  const MyHomePage({required this._title, super.key});
 
   final String _title;
 
@@ -147,11 +147,10 @@ class _MyHomePageState extends State<MyHomePage> {
 class TutorialItemContent extends StatelessWidget {
   /// Creates the widget.
   const TutorialItemContent({
-    required String title,
-    required String content,
+    required this._title,
+    required this._content,
     super.key,
-  })  : _content = content,
-        _title = title;
+  });
 
   final String _title;
   final String _content;
