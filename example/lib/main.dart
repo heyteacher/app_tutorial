@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:app_tutorial/app_tutorial.dart';
+import 'package:app_tutorial_heyteacher/app_tutorial_heyteacher.dart';
 import 'package:flutter/material.dart';
 
 void main() {

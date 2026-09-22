@@ -1,35 +1,39 @@
 # Flutter App Onboarding
 
-<img src="https://raw.githubusercontent.com/aikenahac/tutorial/master/assets/tutorial_demo.gif" alt="roundedRectangle" width="200"/>
+> [!IMPORTANT]
+> this is an unoffical fork of <https://github.com/aikenahac/app_tutorial> which contains commits collected in this [pull request](https://github.com/aikenahac/app_tutorial/pull/6)
+
+<img src="https://raw.githubusercontent.com/heyteacher/app_tutorial_heyteacher/master/assets/tutorial_demo.gif" alt="roundedRectangle" width="200"/>
 
 ## Usage
 
 Import the package into your `pubspec.yaml`
 
-```
+```yaml
 dependencies:
   app_tutorial: ^currentVersion
 ```
 
-View the [example project](https://github.com/aikenahac/app_tutorial/tree/master/example) to see how to use the package.
+View the [example project](https://github.com/heyteacher/app_tutorial_heyteacher/tree/master/example) to see how to use the package.
 
-#### Properties:
+### Properties
 
-##### TutorialItem
+#### TutorialItem
 
 | Property | Description | Type | Required | Default value |
 | -------- | ----------- | ---- | -------- | ------------- |
 | globalKey | The Global Key of the component you want to focus on | `GlobalKey` | `yes` | / |
-| child | Widget to show on the screen when this item is active | `Widget` | `yes`| / |
+| child | Widget to show on the screen when this item is active | `Widget` | `yes` | / |
 | color | Color of the overlay | `Color?` | `no` | `Color.fromRGBO(0, 0, 0, 0.6)` |
 | borderRadius | Radius of the border of the higlighted item | `Radius` | `no` | `Radius.circular(10.0)` |
 | radius | Radius of the `ShapeFocus.oval` shape | `double?` | `no` | `null` |
-| shapeFocus | Shape of the focus element | `ShapeFocus.oval`, `ShapeFocus.square`, `ShapeFocus.roundedSquare` | `no` |  `ShapeFocus.roundedSquare` |
+| shapeFocus | Shape of the focus element | `ShapeFocus.oval`, `ShapeFocus.square`, `ShapeFocus.roundedSquare` | `no` | `ShapeFocus.roundedSquare` |
 
-##### Tutorial
+#### Tutorial
 
 - `show()` - the show () method, receives three parameters, the context, list of tutorial items you created and the onTutorialComplete callback.
-```
+
+```dart
 Tutorial.showTutorial(context, items, onTutorialComplete: () {
   // Code to be executed after the tutorial ends
   print('Tutorial is complete!');
@@ -37,8 +41,9 @@ Tutorial.showTutorial(context, items, onTutorialComplete: () {
 ```
 
 - `skipAll()` - the skipAll() method receives the context parameter and ends the onboarding process
-```
+
+```dart
 Tutorial.skipAll(context);
 ```
 
-###### This package is a separated fork of [this package](https://pub.dev/packages/tutorial).
+##### This package is a separated fork of [this package](https://pub.dev/packages/tutorial)

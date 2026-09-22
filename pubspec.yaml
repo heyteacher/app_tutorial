@@ -1,10 +1,16 @@
-name: app_tutorial
-description: Package for creating onboarding flows for your app to explain the features of the app in a seamless ways to you users.
-version: 1.0.6
-homepage: https://github.com/aikenahac/app-tutorial
+name: app_tutorial_heyteacher
+description: Package for creating onboarding flows for your app to explain the features of the app in a seamless ways to you users (fork by [Hey, Teacher](https://github.com/heyteacher)).
+version: 1.0.7
+repository: https://github.com/heyteacher/app-tutorial-heyteacher
+license: BSD 3-Clause
+issue_tracker: https://github.com/heyteacher/app-tutorial-heyteacher/issues
+homepage: https://github.com/heyteacher/app-tutorial-heyteacher
+documentation: https://github.com/heyteacher/app-tutorial-heyteacher
+topics: [flutter, tutorial]
 
 environment:
-  sdk: '>=2.19.3 <4.0.0'
+  sdk: ">=3.12.0 <4.0.0"
+  flutter: ">=3.47.0"
 
 dependencies:
   flutter:
@@ -14,4 +20,3 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   very_good_analysis: ^11.0.0
-

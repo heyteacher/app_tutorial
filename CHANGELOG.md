@@ -1,3 +1,5 @@
+# Change Log
+
 ## [0.1.0] - Create fork from tutorial package
 
 - First commit
@@ -40,4 +42,10 @@ This update permits users to have more control over the onboarding flow
 
 ## [1.0.5] - Updated docs
 
-## [1.0.6] - added a onTutorialComplete callback which will called after the tutorial ends.
+## [1.0.6] - added a onTutorialComplete callback which will called after the tutorial ends
+
+## [1.0.7] - first release of the package `app_tutorial_heyteacher` (forked from `app_tutorial`)
+
+- remove overlay entry `onTap` or `skipAll` only when count in less then entries length and check `entries` not empty before insert first overlay entry
+- handles RenderBox nullability in _capturePositionWidget and_capturePositionWidget
+- add `very_good_analysis` and fix warnings

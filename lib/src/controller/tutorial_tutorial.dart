@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:app_tutorial/src/models/tutorial_item.dart';
-import 'package:app_tutorial/src/painter/painter.dart';
+import 'package:app_tutorial_heyteacher/src/models/tutorial_item.dart';
+import 'package:app_tutorial_heyteacher/src/painter/painter.dart';
 import 'package:flutter/material.dart';
 
 /// Tutorial class
