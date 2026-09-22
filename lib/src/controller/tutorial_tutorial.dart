@@ -30,9 +30,9 @@ class Tutorial {
           builder: (context) {
             return GestureDetector(
               onTap: () {
-                entries[count].remove();
-                count++;
                 if (count < entries.length) {
+                  entries[count].remove();
+                  count++;
                   overlayState.insert(entries[count]);
                 } else {
                   // If this is the last tutorial step, complete the tutorial
@@ -66,7 +66,9 @@ class Tutorial {
       );
     });
 
-    overlayState.insert(entries[0]);
+    if (entries.isNotEmpty) {
+      overlayState.insert(entries[0]);
+    }
 
     // Wait until the tutorialCompleter.future is completed to indicate the tutorial is finished
     await tutorialCompleter.future;
@@ -80,8 +82,10 @@ class Tutorial {
   }
 
   static skipAll(BuildContext context) {
-    entries[count].remove();
-    count++;
+    if (count < entries.length) {
+      entries[count].remove();
+      count++;
+    }
   }
 
   /// This method returns the position of the widget
