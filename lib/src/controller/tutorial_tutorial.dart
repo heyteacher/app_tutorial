@@ -18,11 +18,10 @@ class Tutorial {
     List<TutorialItem> children, {
     required VoidCallback onTutorialComplete,
   }) async {
+    count = 0;
     clearEntries();
     final size = MediaQuery.of(context).size;
     final overlayState = Overlay.of(context);
-
-    count = 0;
 
     // Create a Completer to indicate when the tutorial is complete
     final tutorialCompleter = Completer<void>();
@@ -31,41 +30,41 @@ class Tutorial {
       final sizeWidget = _getSizeWidget(tutorialItem.globalKey);
       entries.add(
         OverlayEntry(
-          builder: (context) {
-            return GestureDetector(
-              onTap: () {
+          builder: (context) => GestureDetector(
+            onTap: () {
+              if (count < entries.length) {
+                entries[count].remove();
+                count++;
                 if (count < entries.length) {
-                  entries[count].remove();
-                  count++;
                   overlayState.insert(entries[count]);
-                } else {
-                  // If this is the last tutorial step, complete the tutorial
-                  tutorialCompleter.complete();
                 }
-              },
-              child: Scaffold(
-                backgroundColor: Colors.transparent,
-                body: Stack(
-                  children: [
-                    CustomPaint(
-                      size: size,
-                      painter: HolePainter(
-                        shapeFocus: tutorialItem.shapeFocus,
-                        dx: offset.dx + (sizeWidget.width / 2),
-                        dy: offset.dy + (sizeWidget.height / 2),
-                        width: sizeWidget.width,
-                        height: sizeWidget.height,
-                        color: tutorialItem.color,
-                        borderRadius: tutorialItem.borderRadius,
-                        radius: tutorialItem.radius,
-                      ),
+              } else {
+                // If this is the last tutorial step, complete the tutorial
+                tutorialCompleter.complete();
+              }
+            },
+            child: Scaffold(
+              backgroundColor: Colors.transparent,
+              body: Stack(
+                children: [
+                  CustomPaint(
+                    size: size,
+                    painter: HolePainter(
+                      shapeFocus: tutorialItem.shapeFocus,
+                      dx: offset.dx + (sizeWidget.width / 2),
+                      dy: offset.dy + (sizeWidget.height / 2),
+                      width: sizeWidget.width,
+                      height: sizeWidget.height,
+                      color: tutorialItem.color,
+                      borderRadius: tutorialItem.borderRadius,
+                      radius: tutorialItem.radius,
                     ),
-                    tutorialItem.child,
-                  ],
-                ),
+                  ),
+                  tutorialItem.child,
+                ],
               ),
-            );
-          },
+            ),
+          ),
         ),
       );
     }
@@ -83,22 +82,15 @@ class Tutorial {
   }
 
   /// Clears the entries
-  static void clearEntries() {
-    entries.clear();
-  }
+  static void clearEntries() => entries.clear();
 
   /// Skips the tutorial
-  static void skipAll(BuildContext context) {
-    if (count < entries.length) {
-      entries[count].remove();
-      count++;
-    }
-  }
+  static void skipAll(BuildContext context) =>
+      count < entries.length ? entries[count].remove() : null;
 
   /// This method returns the position of the widget
   static Offset _capturePositionWidget(GlobalKey key) {
     final renderPosition = key.currentContext?.findRenderObject() as RenderBox?;
-
     return renderPosition?.localToGlobal(Offset.zero) ?? Offset.zero;
   }
 

@@ -51,3 +51,8 @@ This update permits users to have more control over the onboarding flow
 - add `very_good_analysis` and fix warnings
 
 ## [1.0.8] - fix github repository endpoints in `pubspec.yaml`
+
+## [1.0.9] - bug fixing
+
+- add next overlay entry `onTap` only when end isn't reached
+- add click pointer to next button in example
