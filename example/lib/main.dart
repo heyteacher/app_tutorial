@@ -189,9 +189,12 @@ class TutorialItemContent extends StatelessWidget {
                   const Spacer(),
                   const TextButton(
                     onPressed: null,
-                    child: Text(
-                      'Next',
-                      style: TextStyle(color: Colors.white),
+                    child: MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: Text(
+                        'Next',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                 ],
