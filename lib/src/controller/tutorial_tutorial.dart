@@ -33,7 +33,12 @@ class Tutorial {
                 if (count < entries.length) {
                   entries[count].remove();
                   count++;
-                  overlayState.insert(entries[count]);
+                  if (count < entries.length) {
+                    overlayState.insert(entries[count]);
+                  } else {
+                    // If this is the last tutorial step, complete the tutorial
+                    tutorialCompleter.complete();
+                  }
                 } else {
                   // If this is the last tutorial step, complete the tutorial
                   tutorialCompleter.complete();
